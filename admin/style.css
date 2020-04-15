@@ -1,0 +1,247 @@
+*{
+	margin:0;
+	padding:0;
+}
+/*----INDEX PAGEE & USER PROFILE START----*/
+.container{
+	margin:0 auto;
+	background:#15C39A;
+	max-width:1024px;
+	min-height:680px;
+	height:auto;
+}
+.adminarea{
+	width:100%;
+	height:auto;
+	overflow:hidden;
+	background:#012;
+	
+}
+.adminclass{
+	width: 280px;
+    height: 35px;
+    padding-top: 15px;
+    float: right;
+	list-style-type: none;
+}
+.adminclass li{
+	background-color:#000;
+	color:#ddd;
+	display:inline-block;
+	padding:8px;
+}
+.adminclass li a{
+	color:#FFCAB0;
+	text-align:left;
+	text-decoration:none;
+}
+.adminmenu{
+	width:100%;
+	min-height: 40px;
+	height:auto;
+	overflow:hidden;
+	background:#585F60;
+}
+.menumain{
+	float:left;
+	padding:5px;
+}
+.menumain li{
+	background-color:#000;
+	color:#ddd;
+	display:inline-block;
+	padding:8px;
+}
+.menumain li a{
+	color:#f0f0f0;
+	text-align:left;
+	text-decoration:none;
+	padding:5px;
+}
+
+
+
+.sidebarsection {
+    width: 18%;
+	float:left;
+}
+.sidemenu {
+    background-color: #D1DEE4;
+    border-right: 1px solid #3A5665;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+}
+.menu{
+	list-style:none;
+}
+ul.section li a {
+    line-height: 26px;
+    padding-left: 28px;
+	text-decoration:none;
+}
+ul.menu ul {
+    list-style: none;
+}
+.menuitem{
+    display: block;
+    background: #F0F0F0;
+    padding: 5px;
+	font-size:20px;
+	font-weight:bold;
+}
+.submenu{
+    display: block;
+    background: #CCE8FF;
+	font-weight:bold;
+}
+.submenu li{
+	border-bottom:1px solid #000;
+	padding:5px;
+}
+.submenu li a{
+	font-size:16px;
+	padding:5px;
+	color:#121830;
+	
+}
+.submenu li a:active{
+	color:#FC5656;
+}
+.viewsec{
+	width:80%;
+	min-height:500px;
+	height:auto;
+	float:left;
+	display:block;
+	background:#fff;
+	border-radius: 5px;
+	margin: 10px;
+}
+.dashsec, .changepass, .titlecon, .socialopt, .copyopt, .slideradd_opt, .slidlist, .addcat, .catlist, .addproduct{
+	margin:0 auto;
+	width:95%;
+	padding:5px;
+}
+.box h2{
+	width:100%;
+	background:#F28033;
+	text-align:center;
+	padding:5px;
+	font-size:32px;
+	color:#001122;
+}
+.block{
+	padding:5px;
+	font-size:20px;
+}
+/*----INDEX PAGEE & USER PROFILE END----*/
+
+/*----CHANGE PASSWORD PAGE START----*/
+.form{
+	width:100%;
+	border-collapse:collapse;
+}
+table.form label {
+    font-weight: bold;
+}
+.form td{
+	padding:5px 0;
+}
+.form input[type="password"],[type="text"],[type="file"]{
+    padding: 5px;
+    width: 60%;
+    border: 2px solid #585F60;
+}
+.form input[type="submit"]{
+    border: 1px solid #ddd;
+    color: #444;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 2px 10px;
+}
+/*----CHANGE PASSWORD PAGE END----*/
+.copyblock{
+	margin: 10px;
+    border: 2px solid #ddd;
+    box-shadow: 1px 1px 5px 2px #000;
+}
+
+/*----COPY RIGHT PAGE START----*/
+
+/*----COPY RIGHT PAGE END----*/
+
+/*----sliderList PAGE START----*/
+table.datatable{
+	width:100%;
+	height:auto;
+	border-collapse: collapse;
+}
+.datatable th{
+	text-align: -webkit-left;
+    font-size: 20px;
+    background-color: #A0A0C0;
+    padding: 5px;
+    color: #000;
+}
+.datatable .odd td{
+    font-size: 20px;
+    background-color: #ddd;
+    padding: 5px;
+    color: #000;
+}
+.datatable .odd a{
+	text-decoration:none;
+	color:#000;
+	font-size:16px;
+	font-weight:bold;
+}
+.datatable .odd img{
+	width:50px;
+	height:50px;
+}
+
+/*----sliderList PAGE END----*/
+/*----category PAGE START----*/
+.datatable .even td{
+    font-size: 20px;
+    background-color: #F0F0F0;
+    padding: 5px;
+    color: #000;
+}
+.datatable .even a{
+	text-decoration:none;
+	color:#000;
+	font-size:16px;
+	font-weight:bold;
+}
+
+/*----category PAGE END----*/
+
+/*----ADD PRODUCT START----*/
+
+#select{
+	width:250px;
+	padding:8px;
+	font-size:16px;
+}
+textarea.txt{
+	width: 350px;
+    min-height: 70px;
+    border: 2px solid #ddd;
+}
+/*----ADD PRODUCT END----*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+.slider_main{
+	position:relative;
+}
+.slider img{
+	width:100%;
+	max-height:400px;
+	animation-name:slder-animation;
+	animation-duration:1s;-webkit-animation-name:slder-animation;
+	-webkit-animation-duration:1s;
+	transition:1s all ease-out;-webkit-transition:1s all ease-out;
+	
+}
+
+@keyframes slder-animation{
+	25%{
+		opacity:0.4;
+	}
+	50%{
+		opacity:.6;
+	}
+	75%{
+		opacity:1;
+	}
+}
+@-webkit-keyframes slder-animation{
+	25%{
+		opacity:0.3;
+	}
+	50%{
+		opacity:.6;
+	}
+	75%{
+		opacity:1;
+	}
+}
