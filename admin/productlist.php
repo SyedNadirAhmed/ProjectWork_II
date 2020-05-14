@@ -7,6 +7,12 @@
 	$prd = new Product();
 	$fm = new Format();
 ?>
+<?php
+	if(isset($_GET['deleteproduct'])){
+		$id = $_GET['deleteproduct'];
+		$deleteProduct = $prd->deleteProductById($id);
+	}
+?>
 		
 <div class="viewsec">      
 		<div class="addproduct">
@@ -14,6 +20,11 @@
     <div class="box round first grid">
         <h2>Post List</h2>
         <div class="block">  
+        	<?
+            	if(isset($deleteproduct)){
+            		echo $deleteproduct;
+            	}
+             ?>	  
             <table class="data display datatable" id="example">
 			<thead>
 				<tr>

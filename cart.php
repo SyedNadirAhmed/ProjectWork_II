@@ -7,6 +7,7 @@
 			    	<h2>Your Cart</h2>
 						<table class="tblone">
 							<tr>
+								<th class="">SL</th>
 								<th class="th_1">Image</th>
 								<th  class="th_2">Product Name</th>
 								<th class="th_3">Price</th>
@@ -14,32 +15,54 @@
 								<th class="th_5">Total Price</th>
 								<th class="th_6">Remove</th>
 							</tr>
+							<?php
+								$getPro = $ct->getCartProduct();
+								if ($getPro) {
+									$i = 0; 
+									$sum = 0;
+									while ($result = $getPro->fetch_assoc()) {
+										$i++;
+							?>
 							<tr>
-								<td><img src="images/new-pic1.jpg" alt=""/></td>
-								<td>Product Title</td>
-								<td>Tk. 20000</td>
+								<td><?php echo $i; ?></td>
+								<td><img src="admin/<?php echo $result['image']; ?>" alt=""/></td>
+								<td><?php echo $result['productName']; ?></td>
+								<td>$<?php echo $result['price']; ?></td>
 								<td>
 									<form action="" method="post">
-										<input type="number" name="" value="1"/>
+										<input type="number" name="quantity" value="<?php echo $result['quantity']; ?>"/>
 										<input type="submit" name="submit" value="Update"/>
 									</form>
 								</td>
-								<td>Tk. 40000</td>
+								<td>
+									$<?php 
+										$total = $result['price'] * $result['quantity'];
+										echo $total;
+									 ?>	
+									</td>
 								<td><a href="">X</a></td>
 							</tr>
+							<?php $sum = $sum + $total ?>
+						<?php } } ?>
 						</table>
 						<table class="tbltwo"> 
 							<tr>
 								<th>Sub Total : </th>
-								<td>TK. 1000</td>
+								<td>$ <?php echo $sum ?></td>
 							</tr>
 							<tr>
 								<th>Tax : </th>
-								<td>TK. 3500</td>
+								<td>10%</td>
 							</tr>
 							<tr>
 								<th>Total :</th>
-								<td>TK. 4500 </td>
+								<td> $
+									<?php
+										$vat = $sum * 0.1;
+										$gtotal = $vat + $sum;
+										echo $gtotal;
+									?>
+								</td>
 							</tr>
 					   </table>
 					</div>

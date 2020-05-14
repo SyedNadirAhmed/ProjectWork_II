@@ -1,4 +1,19 @@
 <?php include 'inc/header.php';?>
+<?php
+    if(!isset($_GET['proid']) || $_GET['proid'] == NULL){
+        echo "<script> window.location = '404.php'; </script>";
+    }else{
+        $id = $_GET['proid'];
+    }
+   
+  
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $quantity = $_POST['quantity'];
+            $addCart = $ct->addToCart($quantity,$id);
+    }
+   
+?>
+
 
 	<!------------HEADER BOTTOM START---------------->
 	<!------------MAIN SIDEBAR START---------------->
@@ -30,30 +45,44 @@
 		</div>	
 			<!------------HEADER BOTTOM RIGHT--------------->
 		<div class="details_main">	
+			<?php
+				$getpd = $prd->getSingleProduct($id);
+				if ($getpd) {
+					while ($result = $getpd->fetch_assoc()) {
+
+			?>
 				<div class="pre_con">
 					<div class="details_img">
-						<img src="images/prev_img.jpg" alt="" />
+						<img src="admin/<?php echo $result['image'];?>" alt="" />
 					</div>
 				<div class="pre_details">
-					<h2>Lorem Ipsum is simply dummy text </h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>					
+					<h2><?php echo $result['productName'];?></h2>				
 					<div class="price">
-						<p>Price: 25000Tk</p>
-						<p>Category: Laptop</p>
-						<p>Brand: HP</p>
+						<p>Price:$<?php echo $result['price'];?></p>
+						<p>Category:<?php echo $result['category_Name'];?></p>
+						<p>Brand:<?php echo $result['brandName'];?></p>
 					</div>
 				<div class="add_cart">
-					<form action="cart.php" method="post">
-						<input type="number" class="buyfield" name="" value="1"/>
+					<form action="" method="post">
+						<input type="number" class="buyfield" name="quantity" value="1"/>
 						<input type="submit" class="buysubmit" name="submit" value="Buy Now"/>
 					</form>				
 				</div>
+				<span style="color: red;font-size: 18px;">
+					<?php
+						if (isset($addCart)) {
+							echo $addCart;
+						}
+
+					?>
+				</span>	
 			</div>
 			</div>
 			<div class="product_details">
 				<h2>Product Details</h2>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-			</div>				
+				<?php echo $result['body'];?>
+			</div>	
+		<?php } } ?>				
 	</div>	
 
 <!------------HEADER BOTTOM END---------------->

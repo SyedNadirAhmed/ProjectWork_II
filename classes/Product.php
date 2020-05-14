@@ -1,11 +1,12 @@
 <?php 
-	include_once '../lib/Database.php';
-	include_once '../helpers/Format.php';
+	$filepath = realpath(dirname(__File__));
+	include_once ($filepath.'/../lib/Database.php');
+	include_once ($filepath.'/../helpers/Format.php');
 ?>
 
 <?php
 
-	class Product{
+	class Product {
 		
 	private $db;
 	private $fm;
@@ -78,5 +79,122 @@
 		return $result;
 	}
 
+	public function productUpdate($data,$file,$id){
+	
+		$productName = mysqli_real_escape_string($this->db->link,$data['productName']);
+		$category_Id = mysqli_real_escape_string($this->db->link,$data['category_Id']);
+		$brandId = mysqli_real_escape_string($this->db->link,$data['brandId']);
+		$body = mysqli_real_escape_string($this->db->link,$data['body']);
+		$price = mysqli_real_escape_string($this->db->link,$data['price']);
+		$type = mysqli_real_escape_string($this->db->link,$data['type']);
+
+
+		$permited  = array('jpg', 'jpeg', 'png', 'gif');
+	    $file_name = $file['image']['name'];
+	    $file_size = $file['image']['size'];
+	    $file_temp = $file['image']['tmp_name'];
+
+	    $div = explode('.', $file_name);
+	    $file_ext = strtolower(end($div));
+	    $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
+	    $uploaded_image = "uploads/".$unique_image;
+
+	    if($productName == "" || $category_Id == "" || $brandId == "" || $body == "" || $price == "" || $type == ""){
+
+	    	$msg = "***Fields not be empty";
+	    	return $msg;
+
+		    }else{
+		    	if (!empty($file_name)) {
+
+					    if ($file_size >1048567) {
+
+						     echo "Image Size should be less then 1MB!";
+
+						}elseif (in_array($file_ext, $permited) === false) {
+
+					     echo "You can upload only:-".implode(', ', $permited);
+
+			   		   }else{
+					    	move_uploaded_file($file_temp, $uploaded_image);
+					    	$query = "UPDATE 
+					    				tbl_product
+					    				SET
+					    				productName = '$productName',
+					    				category_Id = '$category_Id',
+					    				brandId 	= '$brandId',
+					    				body 		= '$body',
+					    				price 		= '$price',
+					    				image 		= '$uploaded_image',
+					    				type 		= '$type'
+					    				WHERE productId = '$id'";
+
+					    	$updatedproductrow = $this->db->update($query);
+							if ($updatedproductrow) {
+								$msg = "Product updated successfully";
+								return $msg;
+							}
+							else{
+								$msg =  "Product not updated";
+								return $msg;
+							}
+					}		
+				} else{
+					    	$query = "UPDATE 
+					    				tbl_product
+					    				SET
+					    				productName = '$productName',
+					    				category_Id = '$category_Id',
+					    				brandId 	= '$brandId',
+					    				body 		= '$body',
+					    				price 		= '$price',
+					    				type 		= '$type'
+					    				WHERE productId = '$id'";
+
+					    	$updatedproductrow = $this->db->update($query);
+							if ($updatedproductrow) {
+								$msg = "Product updated successfully";
+								return $msg;
+							}
+							else{
+								$msg =  "Product not updated";
+								return $msg;
+							}
+				}
+					
+	    }
 	}
+	public function deleteProductById($id){
+		$query = "SELECT * FROM  tbl_product WHERE productId = '$id'";
+		$getdata  = $this->db->select($query);
+		if ($getdata) {
+			while ($delImg = $getdata->fetch_assoc()) {
+				$dellink = $delImg['image'];
+				unlink($dellink);
+			}
+		}
+		$delquery = "DELETE FROM tbl_product WHERE productId = '$id'";
+		$deldata = $this->db->delete($delquery);
+		if($deldata){
+			$msg = "Product deleted successfully";
+			return $msg;
+		}else{
+			$msg =  "Product Not Found";
+			return $msg;
+		}
+	}
+
+	public function getProducts(){
+		$query = "SELECT * FROM tbl_product WHERE type='0' ORDER BY productId DESC LIMIT 4";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function getSingleProduct($id){
+		$query = "SELECT  p.*,c.category_Name,b.brandName
+			FROM tbl_product AS p, tbl_category AS c, tbl_brand AS b
+			WHERE P.category_Id = c.category_Id AND p.brandId = b.brandId AND p.productId = '$id'";
+		$result = $this->db->select($query);
+		return $result;
+	} 
+ }
 ?>

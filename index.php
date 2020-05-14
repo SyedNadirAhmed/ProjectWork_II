@@ -1,9 +1,5 @@
 <?php include 'inc/header.php';?>
 <?php include 'inc/slider.php';?>
-
-
-
-
 	<!------------HEADER BOTTOM START---------------->
 	<!------------MAIN SIDEBAR START---------------->
 	<div class="header_bottom">
@@ -131,36 +127,23 @@
     		</div>
 	
 	      <div class="main_product_group1">
+	      		<?php
+	      			$getProducts = $prd->getProducts();
+	      			if ($getProducts) {
+	      				while ($result = $getProducts->fetch_assoc()) {
+	      			
+	      		?>
 				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
+					 <a href="preview.php?proid=<?php echo $result['productId'];?>">
+					 	<img src="admin/<?php echo $result['image'];?>" alt="" />
+					 </a>
+					 <h2><?php echo $result['productName'];?></h2>
+					 <p><?php echo  $fm->textShorten($result['body'],50);?></p>
+					 <p><span class="price">$<?php echo $result['price'];?></span></p>
+				     <div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>" class="details">Details</a></span></div>
 				</div>
-				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
-				</div>
-				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
-				</div>
-				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
-				</div>
-				
-
+			
+			<?php } } ?>
 
 			</div>	
 </div>

@@ -22,7 +22,7 @@
 	<div class="viewsec">      
 		<div class="addproduct">
 			<div class="box">
-				<h2>Add New Product</h2>
+				<h2>Update Product</h2>
 				<div class="block"> 
 				<?php 
 					if(isset($updateProduct)){
@@ -159,7 +159,7 @@
 						<tr>
 							<td></td>
 							<td>
-								<input type="submit" name="submit" Value="Save" />
+								<input type="submit" name="submit" Value="Update" />
 							</td>
 						</tr>
 					</table>
