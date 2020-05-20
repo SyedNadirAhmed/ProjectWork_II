@@ -12,6 +12,8 @@
 	$fm 	= new Format();
 	$prd 	= new Product();
 	$ct 	= new Cart();
+	$ctg    = new Category();
+	$cus    = new Customer();
 ?>
 
 <!DOCTYPE HTML>
@@ -40,12 +42,36 @@
 					<div class="cart">
 						<a href="cart.php">
 								<span class="cart_title">Cart</span>
-								<span class="no_product">(empty)</span>
+								<span class="no_product">
+								 <?php
+								 	$getData = $ct->checkCartTable();
+								 	if ($getData) {
+								 		$sum = Session::get("sum");
+								 		$qty = Session::get("qty");
+								 		echo "$".$sum." | Q: ".$qty; 
+								 	}else{
+								 		echo "(Empty)";
+								 	}
+								 ?>
+								</span>
 						</a>
 					</div>
 			     </div>
+			    <?php
+			    	if (isset($_GET['cid'])) {
+			    		$deldata = $ct->delcustomercart();
+			    		Session::destroy();
+			    	}
+
+			    ?> 
 				<div class="loginRegister">
-						<a href="login.php"><span class="login">Login</span></a>
+						<?php
+							$login = Session::get('customerlogin');
+							if ($login == false) {?>
+								<a href="login.php"><span class="login">Login</span></a>
+						<?php	} else{ ?>
+								<a href="?cid=<?php Session::get('customerId') ?>"><span class="login">Logout</span></a>
+						<?php } ?>
 						<a href="register.php"><span class="register">Register</span></a>	
 				</div>
 			</div>
@@ -59,8 +85,26 @@
 			  <li><a href="index.php">Home</a></li>
 			  <li><a href="products.php">Products</a> </li>
 			  <li><a href="topbrands.php">Top Brands</a></li>
-			  <li><a href="cart.php">Cart</a></li>
-			  <li><a href="contact.php">Contact</a> </li>
+			  <?php
+			  	$chkcart = $ct-> checkCartTable();
+			  		if ($chkcart) {  ?>
+			  			<li><a href="cart.php">Cart</a></li>
+			  			<li><a href="payment.php">Payment</a></li>
+			  <?php	}  ?>
+
+				<?php
+				$customerId = Session::get("customerId");
+			  	$chkOrder = $ct->checkOrder($customerId);
+			  		if ($chkOrder) {  ?>
+			  			<li><a href="orderdetails.php">Order Details</a></li>
+			  	<?php	}  ?>			  
+			 
+			  <?php
+			  	$login = Session::get("customerlogin");
+			  	if ($login == true) {   ?>
+			  		<li><a href="profile.php">Profile</a> </li>
+			   <?php	}   ?>
+			  <li><a href="contact.php">Contact</a> </li> 
 			</ul>
 		</div>
 		<!-----MAIN MENU END----->		

@@ -22,19 +22,13 @@
 			<aside>
 				<h2>Categories</h2>
 				<ul>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
+					<?php
+						$getCat = $ctg->getAllcat();
+						if ($getCat) {
+						 	while ($result = $getCat->fetch_assoc()) {
+					?>
+					<li><a href="productsbycategory.php?catId=<?php echo $result['category_Id']?>"><?php echo $result['category_Name']?></a></li>
+					<?php } } ?>
 				</ul>
 			</aside>
 		</div>

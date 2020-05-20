@@ -7,110 +7,143 @@
 			<aside>
 				<h2>Categories</h2>
 				<ul>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
-					<li><a href="#">Products</a></li>
+					<?php
+						$getCat = $ctg->getAllcat();
+						if ($getCat) {
+						 	while ($result = $getCat->fetch_assoc()) {
+					?>
+					<li><a href="productsbycategory.php?catId=<?php echo $result['category_Id']?>"><?php echo $result['category_Name']?></a></li>
+					<?php } } ?>
 				</ul>
 			</aside>
 		</div>
 		<!------------MAIN SIDEBAR END---------------->
 		<!------------HEADER BOTTOM RIGHT, PRODUCTS---------------->
-		<div class="header_bottom_right">
+		<div class="header_bottom_right">	
 			<div class="Products_group1">
+				<?php
+					$getlatestproOne = $prd->getLatestProOne();
+					if ($getlatestproOne) {
+						while ($result = $getlatestproOne->fetch_assoc()) {
+				?>
 				<div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
-			   </div>			
+			   </div>	
+			  
+
 			   <div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
 			   </div>
-			   <div class="Products_group1_product1">
+			    <?php } } ?>	
+
+
+			  <?php
+					$getlatestproTwo = $prd->getLatestProTwo();
+					if ($getlatestproTwo) {
+						while ($result = $getlatestproTwo->fetch_assoc()) {
+				?>
+				<div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
-			   </div>						   
+			   </div>	
+			  
+
 			   <div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
-			   </div>			
+			   </div>
+			    <?php } } ?>		
 	
+				<?php
+					$getlatestproThree = $prd->getLatestProThree();
+					if ($getlatestproThree) {
+						while ($result = $getlatestproThree->fetch_assoc()) {
+				?>
 				<div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
-			   </div>			
+			   </div>	
+			  
+
 			   <div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
 			   </div>
+			    <?php } } ?>
+
+			    <?php
+					$getlatestproFour = $prd->getLatestProFour();
+					if ($getlatestproFour) {
+						while ($result = $getlatestproFour->fetch_assoc()) {
+				?>
 			   <div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
 			   </div>
-				<div class="Products_group1_product1">
+			   <?php } } ?>
+
+				<?php
+					$getlatestproFive = $prd->getLatestProFive();
+					if ($getlatestproFive) {
+						while ($result = $getlatestproFive->fetch_assoc()) {
+				?>
+			   <div class="Products_group1_product1">
 					<div class="listimg1">
-						 <a href="preview.php"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId'];?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="listimg1_text">
 						<h2>Computer</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.php">Add to cart</a></span></div>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId'];?>">Add to cart</a></span></div>
 				   </div>
-			   </div>		
+			   </div>
+			   <?php } } ?>		
 
 			</div>
-			
 			
 		</div>	
 			<!------------HEADER BOTTOM RIGHT, PRODUCTS END---------------->

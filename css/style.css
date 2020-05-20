@@ -245,7 +245,8 @@ a {
 .Products_group1 .Products_group1_product1 .listimg1 img{
 	display: block;
 	margin:0 auto;
-	max-width:100%;
+	width: 80px;
+    height: 80px;
 }
 
 .Products_group1 .Products_group1_product1 .listimg1_text{
@@ -308,6 +309,7 @@ a {
 .main_product .main_product_group1{
 	width:100%;
 	padding-left: 1%;
+	overflow: hidden;
 } 
 .main_product .main_product_group1 .main_product_1{
 	padding: 5px 0;

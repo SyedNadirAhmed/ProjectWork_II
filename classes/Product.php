@@ -195,6 +195,44 @@
 			WHERE P.category_Id = c.category_Id AND p.brandId = b.brandId AND p.productId = '$id'";
 		$result = $this->db->select($query);
 		return $result;
-	} 
+	}
+
+
+
+	//Home page slider bottom section product
+	public function getLatestProOne(){
+		$query = "SELECT * FROM tbl_product WHERE brandId = '1' ORDER BY productId DESC LIMIT 2";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function getLatestProTwo(){
+		$query = "SELECT * FROM tbl_product WHERE brandId = '2' ORDER BY productId DESC LIMIT 2";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function getLatestProThree(){
+		$query = "SELECT * FROM tbl_product WHERE brandId = '3' ORDER BY productId DESC LIMIT 2";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function getLatestProFour(){
+		$query = "SELECT * FROM tbl_product WHERE brandId = '4' ORDER BY productId DESC LIMIT 1";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function getLatestProFive(){
+		$query = "SELECT * FROM tbl_product WHERE brandId = '5' ORDER BY productId DESC LIMIT 1";
+		$result = $this->db->select($query);
+		return $result;
+	}
+
+
+	//=====================================
+	public function productByCat($id){
+		$category_Id = mysqli_real_escape_string($this->db->link,$id);
+		$query = "SELECT * FROM tbl_product WHERE category_Id = '$category_Id'";
+		$result = $this->db->select($query);
+		return $result;
+	}
  }
 ?>

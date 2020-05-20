@@ -1,10 +1,41 @@
 <?php include 'inc/header.php';?>
 		<!------------CART HTML START---------------->
-
+<?php
+	
+	if (isset ($_GET['delpro'])) {
+		$delid = $_GET['delpro'];
+		$delProduct = $ct->delProductByCart($delid);
+	}
+?>
+<?php
+	 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $cartId = $_POST['cartId'];
+        $quantity = $_POST['quantity'];
+        $UpdateCart = $ct->UpdateCart($cartId,$quantity);
+        if ($quantity <= 0) {
+        	$delProduct = $ct->delProductByCart($cartId);
+        }
+	}
+?>
+<?php
+	if (!isset($_GET['id'])) {
+		echo "<meta http-equiv='refresh' content='0;URL=?id=live'/>";
+	}
+?>
     <div class="cart_main">
     	<div class="cartoption">		
 			<div class="cartpage">
 			    	<h2>Your Cart</h2>
+			    	<?php
+						if (isset($UpdateCart)) {
+							echo $UpdateCart;
+						}
+					?>
+					<?php
+						if (isset($delProduct)) {
+							echo $delProduct;
+						}
+					?>
 						<table class="tblone">
 							<tr>
 								<th class="">SL</th>
@@ -20,6 +51,7 @@
 								if ($getPro) {
 									$i = 0; 
 									$sum = 0;
+									$qty = 0;
 									while ($result = $getPro->fetch_assoc()) {
 										$i++;
 							?>
@@ -29,10 +61,16 @@
 								<td><?php echo $result['productName']; ?></td>
 								<td>$<?php echo $result['price']; ?></td>
 								<td>
+
+
 									<form action="" method="post">
+										<input type="hidden" name="cartId" value="<?php echo $result['cartId']; ?>"/>
+
 										<input type="number" name="quantity" value="<?php echo $result['quantity']; ?>"/>
 										<input type="submit" name="submit" value="Update"/>
 									</form>
+
+
 								</td>
 								<td>
 									$<?php 
@@ -40,12 +78,21 @@
 										echo $total;
 									 ?>	
 									</td>
-								<td><a href="">X</a></td>
+								<td><a onclick="return confirm('Are you sure to delete this product');" href="?delpro=<?php echo $result['cartId']; ?>">X</a></td>
 							</tr>
-							<?php $sum = $sum + $total ?>
+							<?php
+								 $qty = $qty + $result['quantity'];
+								 $sum = $sum + $total;
+								 Session::set("qty", $qty); 
+								 Session::set("sum", $sum); 
+							?>
 						<?php } } ?>
 						</table>
 						<table class="tbltwo"> 
+							<?php
+								$getData = $ct->checkCartTable();
+								 if ($getData) {
+							?>
 							<tr>
 								<th>Sub Total : </th>
 								<td>$ <?php echo $sum ?></td>
@@ -65,6 +112,12 @@
 								</td>
 							</tr>
 					   </table>
+					   <?php
+					   	}else{
+					   		header("Location:index.php");
+					   		//echo "Cart Empty";
+					   	}
+					   ?>
 					</div>
 					</div>  
 					<div class="shopping">
@@ -72,7 +125,7 @@
 							<a href="index.php"> <img src="images/shopping_cart_add.png" alt="ContinueShopping"/>Continue Shopping</a>
 						</div>
 						<div class="Check_shop">
-							<a href="login.php"> <img src="images/iconfinder_check.png" alt="CheckOut" />CheckOut</a>
+							<a href="payment.php"> <img src="images/iconfinder_check.png" alt="CheckOut" />CheckOut</a>
 						</div>
 				</div>
     </div>
