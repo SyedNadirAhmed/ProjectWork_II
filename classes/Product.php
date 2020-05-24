@@ -234,5 +234,81 @@
 		$result = $this->db->select($query);
 		return $result;
 	}
+
+	public function insertCompareDate($compareid,$customerId){
+		$productId 	= mysqli_real_escape_string($this->db->link,$compareid);
+		$customerId = mysqli_real_escape_string($this->db->link,$customerId);
+		
+		$cquery = "SELECT * FROM tbl_compare WHERE customerId = '$customerId' AND productId = '$productId'";
+		$chk = $this->db->select($cquery);
+		if ($chk) {
+			$msg =  "Already Added";
+			return $msg;
+		}
+
+		$query = "SELECT * FROM tbl_product WHERE productId = '$productId'";
+		$result = $this->db->select($query)->fetch_assoc();
+		if ($result) {
+				$productId = $result['productId'];
+				$productName = $result['productName'];
+				$price = $result['price'];
+				$image = $result['image'];
+		}
+		$query = "INSERT INTO tbl_compare(customerId,productId,productName,price,image) VALUES('$customerId','$productId','$productName','$price','$image')";
+	    	$insertproductrow = $this->db->insert($query);
+	    	if ($insertproductrow) {
+		    	$msg = "Added to compare";
+				return $msg;
+				}else{
+					$msg =  "Not added";
+					return $msg;
+			}
+	    }
+	    public function getCompareData($customerId){
+	    	$query = "SELECT * FROM tbl_compare WHERE customerId = '$customerId' ORDER BY id DESC";
+	    	$result = $this->db->select($query);
+	    	return $result;
+
+	    }
+	    public function delCompareData($customerId){
+	    	$query = "DELETE FROM tbl_compare WHERE customerId = '$customerId'";
+			$deldata = $this->db->delete($query);
+	    }
+	    public function saveWishListData($id,$customerId){
+	    	$cquery = "SELECT * FROM tbl_wlist WHERE customerId = '$customerId' AND productId = '$id'";
+				$chk = $this->db->select($cquery);
+				if ($chk) {
+					$msg =  "Already Added On Wishlist";
+					return $msg;
+				}
+
+	    	$query = "SELECT * FROM tbl_product WHERE productId = '$id'";
+			$result = $this->db->select($query)->fetch_assoc();
+			if ($result) {
+					$productId = $result['productId'];
+					$productName = $result['productName'];
+					$price = $result['price'];
+					$image = $result['image'];
+			
+			$query = "INSERT INTO tbl_wlist(customerId,productId,productName,price,image) VALUES('$customerId','$productId','$productName','$price','$image')";
+		    	$insertproductrow = $this->db->insert($query);
+			    if ($insertproductrow) {
+			    	$msg = "Added to Wishlist";
+					return $msg;
+					}else{
+						$msg =  "Not added";
+						return $msg;
+					}	
+	    	}
+	   } 
+	   public function getWlistData($customerId){
+	   		$query = "SELECT * FROM tbl_wlist WHERE customerId = '$customerId' ORDER BY id DESC";
+			$result = $this->db->select($query);
+			return $result;
+	   }
+	   public function delWlistData($productId,$customerId){
+	   		$query = "DELETE FROM tbl_wlist WHERE customerId = '$customerId' AND productId = '$productId'";
+			$deldata = $this->db->delete($query);
+	   }
  }
 ?>

@@ -6,6 +6,12 @@
 	}
 ?>
 <?php
+	$login = Session::get('customerlogin');
+	if ($login == false) {
+		header("Location:login.php");
+	}
+?>
+<?php
 	$customerId = Session::get('customerId');
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])){
             $updateCMR = $cus->customerUpdate($_POST,$customerId);

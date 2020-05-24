@@ -1,4 +1,10 @@
 <?php include 'inc/header.php';?>
+<?php
+	$login = Session::get('customerlogin');
+	if ($login == false) {
+		header("Location:login.php");
+	}
+?>
 		<!------------CART HTML START---------------->
 <?php
 	

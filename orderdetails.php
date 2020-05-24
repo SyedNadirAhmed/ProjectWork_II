@@ -1,4 +1,10 @@
 <?php include 'inc/header.php';?>
+<?php
+	$login = Session::get('customerlogin');
+	if ($login == false) {
+		header("Location:login.php");
+	}
+?>
 <style>
 	.main{
 		width: 100%;
@@ -20,6 +26,15 @@
 			$login = Session::get('customerlogin');
 			if ($login == false) {
 				header("Location:login.php");
+			}
+		?>
+		<?php
+			if (isset($_GET['customerId'])) {
+				$id 	= $_GET['customerId'];
+				$time 	= $_GET['time'];
+				$price 	= $_GET['price'];
+
+				$confirm = $ct->productshifConfirm($id,$time,$price);
 			}
 		?>
 <div class="main">
@@ -48,11 +63,10 @@
 			<td><?php echo $i; ?></td>
 			<td><img src="admin/<?php echo $result['image']; ?>" alt=""/></td>
 			<td><?php echo $result['productName']; ?></td>
-			<td>$<?php echo $result['quantity']; ?></td>
+			<td><?php echo $result['quantity']; ?></td>
 			<td>
 				$<?php 
-					$total = $result['price'];
-					echo $total;
+					echo $result['price'];
 				 ?>	
 			</td>
 			<td><?php echo $fm->formatDate($result['date']); ?></td>
@@ -60,18 +74,22 @@
 				<?php
 					if ($result['status'] == '0') {
 						echo "Pending";
-					}else{
+					}elseif ($result['status'] == '1') {
 						echo "Shifted";
+					}else{
+						echo "Ok";
 					}
 				?>
 			</td>
 			
 				<?php
 					if ($result['status'] == '1') { ?>
-						<td><a onclick="return confirm('Are you sure to delete this product');" href="">X</a></td>
+						<td><a href="?customerId=<?php echo $customerId;?>&price=<?php echo  $result['price'];?>&time=<?php echo $result['date'];?>">Confirm</a></td>
 
-					<?php	}else{ ?>
-						<td>N/A</td>
+					<?php	}elseif($result['status'] == '2'){?>
+						<td>Ok</td>
+				<?php	}elseif ($result['status'] == '0') {?>
+					<td>N/A</td>
 				<?php	} ?>
 		</tr>
 	<?php } } ?>

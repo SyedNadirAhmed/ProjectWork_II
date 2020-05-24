@@ -106,7 +106,7 @@
 			return $result;
 		}
 		public function getOrderProduct($customerId){
-			$query = "SELECT * FROM tbl_order WHERE customerId = '$customerId' ORDER BY productId DESC";
+			$query = "SELECT * FROM tbl_order WHERE customerId = '$customerId' ORDER BY date DESC";
 			$result = $this->db->select($query);
 			return $result;
 		}
@@ -115,5 +115,57 @@
 			$result = $this->db->select($query);
 			return $result;
 		}
-	}	
+
+		//From Admin Panel Inbox Product view
+		public function getAllOrderProduct(){
+			$query = "SELECT * FROM tbl_order ORDER BY date DESC";
+			$result = $this->db->select($query);
+			return $result;
+		}
+		public function productshifted($id,$time,$price){
+			$id = mysqli_real_escape_string($this->db->link,$id);
+			$time = mysqli_real_escape_string($this->db->link,$time);
+			$price = mysqli_real_escape_string($this->db->link,$price);
+
+			$query = "UPDATE tbl_order SET status = '1' WHERE customerId = '$id' AND date = '$time' AND price = '$price'";
+			$updatedlistrow = $this->db->update($query);
+			if($updatedlistrow ){
+				$msg = "update successfully";
+				return $msg;
+			}else{
+				$msg =  "Not update"; 
+				return $msg;
+			}	
+		}
+		public function delProductshifted($id,$time,$price){
+			$id 	= mysqli_real_escape_string($this->db->link,$id);
+			$time 	= mysqli_real_escape_string($this->db->link,$time);
+			$price 	= mysqli_real_escape_string($this->db->link,$price);
+
+			$query = "DELETE FROM tbl_order WHERE customerId = '$id' AND date = '$time' AND price = '$price'";
+			$deldata = $this->db->delete($query);
+			if($deldata){
+				$deldata = "Deleted successfully";
+				return $deldata;
+			}else{
+				$deldata =  "Not Found";
+				return $deldata;
+			}
+		}
+		public function productshifConfirm($id,$time,$price){
+			$id = mysqli_real_escape_string($this->db->link,$id);
+			$time = mysqli_real_escape_string($this->db->link,$time);
+			$price = mysqli_real_escape_string($this->db->link,$price);
+
+			$query = "UPDATE tbl_order SET status = '2' WHERE customerId = '$id' AND date = '$time' AND price = '$price'";
+			$updatedlistrow = $this->db->update($query);
+			if($updatedlistrow ){
+				$msg = "update successfully";
+				return $msg;
+			}else{
+				$msg =  "Not update"; 
+				return $msg;
+			}		
+		}
+	}		
 ?>

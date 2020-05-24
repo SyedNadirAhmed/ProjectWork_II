@@ -1,20 +1,30 @@
 <?php include 'inc/header.php';?>
 <?php
     if(!isset($_GET['proid']) || $_GET['proid'] == NULL){
-        echo "<script> window.location = '404.php'; </script>";
+        echo "<script>window.location = '404.php';</script>";
     }else{
-        $id = $_GET['proid'];
+    	$id = $_GET['proid'];
     }
    
-  
-    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])){
             $quantity = $_POST['quantity'];
             $addCart = $ct->addToCart($quantity,$id);
     }
-   
 ?>
-
-
+<?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Compare'])){
+    		$productId = $_POST['productId'];
+            $insertCompare = $prd->insertCompareDate($productId,$customerId);
+    }
+?>
+<?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['wlist'])){
+            $saveWlist = $prd->saveWishListData($id,$customerId);
+    }
+?>
+<style>
+	.add_cart form{padding: 5px;}
+</style>
 	<!------------HEADER BOTTOM START---------------->
 	<!------------MAIN SIDEBAR START---------------->
 	<div class="header_bottom">
@@ -39,7 +49,7 @@
 		</div>	
 			<!------------HEADER BOTTOM RIGHT--------------->
 		<div class="details_main">	
-			<?php
+			<?php 
 				$getpd = $prd->getSingleProduct($id);
 				if ($getpd) {
 					while ($result = $getpd->fetch_assoc()) {
@@ -67,9 +77,31 @@
 						if (isset($addCart)) {
 							echo $addCart;
 						}
-
+						if (isset($saveWlist)) {
+							echo $saveWlist;
+						}
 					?>
 				</span>	
+				<?php
+					if (isset($insertCompare)) {
+						echo $insertCompare;
+					}
+				?>
+				
+					<?php
+						$login = Session::get('customerlogin');
+						if ($login == true) {?>
+				<div class="add_cart">
+					<form action="" method="post">
+					<input type="hidden" class="buyfield" name="productId" value="<?php echo $result['productId'];?>"/>
+						<input type="submit" class="buysubmit" name="Compare" value="Add To Compare"/>
+					</form>		
+
+					<form action="" method="post">
+						<input type="submit" class="buysubmit" name="wlist" value="Wish List"/>
+					</form>			
+				</div>
+			<?php } ?>
 			</div>
 			</div>
 			<div class="product_details">
@@ -82,49 +114,5 @@
 <!------------HEADER BOTTOM END---------------->
 
 </div>
-
-<!------------MAIN PRODUCT SECTION START---------------->
- <div class="main_product">
-    		<div class="heading">
-    		<h2>Products</h2>
-    		</div>
-	
-	      <div class="main_product_group1">
-				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
-				</div>
-				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
-				</div>
-				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
-				</div>
-				<div class="main_product_1">
-					 <a href="preview.php"><img src="images/pic4.png" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-					 <p><span class="price">$505.22</span></p>
-				     <div class="button"><span><a href="preview.php" class="details">Details</a></span></div>
-				</div>
-				
-
-
-			</div>	
-</div>
-<!------------MAIN PRODUCT SECTION END---------------->
-
-
 
 <?php include 'inc/footer.php';?>
