@@ -64,7 +64,6 @@
 			    		$delcomparedata = $prd->delCompareData($customerId);
 			    		Session::destroy();
 			    	}
-
 			    ?> 
 				<div class="loginRegister">
 						<?php
